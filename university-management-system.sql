@@ -36,6 +36,11 @@ CREATE TABLE pr2.CourseEnrollment
 	GradeID	        INTEGER	                      REFERENCES    pr2.Grades(GradeID)
 );
 
+SELECT * 
+FROM pr2.CourseEnrollment ce
+JOIN pr2.CourseSchedule cs ON ce.CourseScheduleId = cs.CourseScheduleId;
+
+
 CREATE TABLE pr2.CourseSchedule
 (
 	CourseScheduleID INTEGER   AUTO_INCREMENT PRIMARY KEY,
@@ -135,7 +140,6 @@ INSERT INTO pr2.Addresses (Street1, Street2 , City , State , ZIP) VALUES
 ('111 Grand Avenue',NULL,'East Bay','California','96000'),
 ('Paras Apartment','Paud Road','Pune','Maharashtra','411038'),
 ('123 Kailas Tower','Powai','Mumbai','Maharashtra','760004');
-
 -- SELECT * FROM pr2.Addresses;
 
 INSERT INTO pr2.ClassRoom (ClassRoomID, RoomNumber,MaximumSeating, WhiteBoardCount,OtherAV) VALUES
@@ -145,8 +149,7 @@ INSERT INTO pr2.ClassRoom (ClassRoomID, RoomNumber,MaximumSeating, WhiteBoardCou
 ('04-CST','CST-112',80, 1,'Tape Player'),
 ('05-NCC','NCC-312',30 ,0,'Podiums'),
 ('06-SC','SC-222',20, 3,'Audio Recording');
-
--- SELECT * FROM pr2.ClassRoom
+-- SELECT * FROM pr2.ClassRoom;
 
 INSERT INTO pr2.CourseDailySchedule (CourseID , DayOfWeek , StartTime , EndTime) VALUES
 (13,2,'13:00:00','15:00:00'),
@@ -157,8 +160,7 @@ INSERT INTO pr2.CourseDailySchedule (CourseID , DayOfWeek , StartTime , EndTime)
 (27,3,'16:30:00','19:00:00'),
 (29,1,'15:00:00','18:00:00'),
 (30,1,'16:00:00','19:00:00');
-
--- SELECT * FROM pr2.CourseDailySchedule
+-- SELECT * FROM pr2.CourseDailySchedule;
 
 INSERT INTO pr2.CourseEnrollment (EnrollmentID,CourseID,StudentID,StatusID,GradeID) VALUES
 (200,13,1,1,1),
@@ -168,25 +170,18 @@ INSERT INTO pr2.CourseEnrollment (EnrollmentID,CourseID,StudentID,StatusID,Grade
 (204,22,5,2,NULL),
 (205,27,2,1,1),
 (206,13,6,1,NULL);
-
--- SELECT * FROM pr2.CourseEnrollment
-
-INSERT INTO pr2.CourseSchedule (CourseCode,CourseNumber,NumberOfSeats,Location,Semester) VALUES 
-('CS', 612 ,50,'04-CST',1);
+-- SELECT * FROM pr2.CourseEnrollment;
 
 INSERT INTO pr2.CourseSchedule (CourseCode,CourseNumber,NumberOfSeats,Location,Semester) VALUES 
+('CS', 612 ,50,'04-CST',1),
 ('CS', 692 ,60,'04-CST',2),
 ('EE', 632 ,25,'05-NCC',3),
 ('EE', 662 ,35,'03-HC',4),
-('CS', 702 ,45,'02-HL',5);
-INSERT INTO pr2.CourseSchedule (CourseCode,CourseNumber,NumberOfSeats,Location,Semester) VALUES 
-('CS', 772 ,15,NULL,7);
-
-INSERT INTO pr2.CourseSchedule (CourseCode,CourseNumber,NumberOfSeats,Location,Semester) VALUES 
+('CS', 702 ,45,'02-HL',5),
+('CS', 772 ,15,NULL,7),
 ('MAE', 111 ,30,NULL,1),
 ('CE', 775 , 30 , NULL , 8);
-
--- SELECT * FROM pr2.CourseSchedule
+-- SELECT * FROM pr2.CourseSchedule;
 
 INSERT INTO pr2.DayOfWeek(Text) VALUES
 ('Sunday'),
@@ -196,7 +191,6 @@ INSERT INTO pr2.DayOfWeek(Text) VALUES
 ('Thursday'),
 ('Friday'),
 ('Saturday');
-
 -- SELECT * FROM pr2.DayOfWeek;
 
 INSERT INTO pr2.EmployeeInfo (EmployeeID, PersonID , YearlyPay , JobInformation) VALUES
@@ -206,7 +200,6 @@ INSERT INTO pr2.EmployeeInfo (EmployeeID, PersonID , YearlyPay , JobInformation)
 ('04-FA', 10 , 3000.00 ,  1),
 ('05-AA', 12 , 40000.00 , 6),
 ('10-GI', 11 , 5000.00 , 3);
-
 -- SELECT * FROM pr2.EmployeeInfo;
 
 INSERT INTO pr2.Grades(Grade)VALUES
@@ -214,7 +207,6 @@ INSERT INTO pr2.Grades(Grade)VALUES
 ('B'),
 ('C'),
 ('D');
-
 -- SELECT * FROM pr2.Grades;
 
 INSERT INTO pr2.JobInformation (JobDescription, MinPay,MaxPay,UnionJob) VALUES
@@ -224,8 +216,7 @@ INSERT INTO pr2.JobInformation (JobDescription, MinPay,MaxPay,UnionJob) VALUES
 ('Lecturer', 10000.00,90000.00,'Yes'),
 ('Research Professor', 7000.00,45000.00,'No'),
 ('Teaching Assistant', 10000.00,95000.00,'No');
-
--- SELECT * FROM pr2.JobInformation
+-- SELECT * FROM pr2.JobInformation;
 
 -- Students
 INSERT INTO pr2.People (NTID ,FirstName, LastName, age, designation , HomeAddress , LocalAddress , IsActive) VALUES
@@ -244,11 +235,11 @@ INSERT INTO pr2.People (NTID ,FirstName, LastName,age,  designation, HomeAddress
 ('04-Db','Daphne','Blake',50, 'employee' ,1 , 6, 'No'),
 ('05-Vd','Velma','Dinkley',30, 'employee',2 , NULL, 'Yes'),
 ('06-Yd','Yabba','Doo',30, 'employee', 5 , NULL, 'No');
-
 -- SELECT * FROM pr2.People;
 
 -- SELECT * FROM pr2.people p
--- JOIN pr2.Addresses a ON p.HomeAddress = a.AddressId;
+-- LEFT JOIN pr2.Addresses a ON p.HomeAddress = a.AddressId
+-- JOIN pr2.Addresses la ON p.LocalAddress = la.AddressId;
 
 INSERT INTO pr2.SemesterInfo(Semester,Year,FirstDay,LastDay)VALUES
 (1,2012,'20120618','20121218'),
@@ -259,19 +250,16 @@ INSERT INTO pr2.SemesterInfo(Semester,Year,FirstDay,LastDay)VALUES
 (2,2015,'20150116','20150516'),
 (1,2016,'20160618','20161218'),
 (2,2016,'20160116','20160518');
-
 -- SELECT * FROM pr2.SemesterInfo;
 
 INSERT INTO pr2.SemesterText(SemesterText) VALUES
 ('FALL'),
 ('SPRING'), 
 ('SUMMER');
-
-SELECT * FROM pr2.SemesterText;
+-- SELECT * FROM pr2.SemesterText;
 
 INSERT INTO pr2.StudentGradingStatus (StudentGradingStatus) VALUES ('Graded');
 INSERT INTO pr2.StudentGradingStatus (StudentGradingStatus) VALUES ('Ungraded');
-
 -- SELECT * FROM pr2.StudentGradingStatus;
 
 INSERT INTO pr2.StudentInfo (PersonID, StudentStatusID) VALUES
@@ -281,13 +269,23 @@ INSERT INTO pr2.StudentInfo (PersonID, StudentStatusID) VALUES
 (1,1),
 (5,2),
 (2,4);
-
- SELECT * FROM pr2.StudentInfo;
+-- SELECT * FROM pr2.StudentInfo;
 
 INSERT INTO pr2.StudentStatus (StudentStatus) VALUES 
 ('Full-Time'),
 ('Part-Time'),
 ('Voluntary Withdrawal'),
 ('Expelled');
-
 -- SELECT * FROM pr2.StudentStatus;
+ 
+-- SELECT *
+-- FROM pr2.StudentInfo s
+-- JOIN pr2.People p ON s.PersonId = p.PersonID
+-- JOIN pr2.StudentStatus st ON s.StudentStatusID = st.StudentStatusID;
+
+
+
+
+
+
+
